@@ -6,7 +6,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.0.2
-Release:        12.8%{?dist}
+Release:        12.9%{?dist}
 Summary:        Felix OSGi OBR Service API
 
 License:        ASL 2.0
@@ -16,11 +16,11 @@ BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix_java_common}javapackages-tools
 BuildRequires:  %{?scl_prefix_java_common}maven-local
-BuildRequires:  maven30-maven-plugin-bundle
-BuildRequires:  maven30-maven-surefire-plugin
-BuildRequires:  maven30-maven-surefire-provider-junit
-BuildRequires:  maven30-felix-osgi-core
-BuildRequires:  maven30-felix-parent
+BuildRequires:  %{?scl_prefix}maven-plugin-bundle
+BuildRequires:  %{?scl_prefix}maven-surefire-plugin
+BuildRequires:  %{?scl_prefix}maven-surefire-provider-junit
+BuildRequires:  %{?scl_prefix}felix-osgi-core
+BuildRequires:  %{?scl_prefix}felix-parent
 
 %description
 OSGi OBR Service API.
@@ -33,20 +33,20 @@ API documentation for %{pkg_name}.
 
 %prep
 %setup -q -n %{bundle}-%{version}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 
 %mvn_file : felix/%{bundle}.jar
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_build
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_install
 %{?scl:EOF}
@@ -58,6 +58,9 @@ set -e -x
 %doc LICENSE NOTICE
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 1.0.2-12.9
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 1.0.2-12.8
 - maven33 rebuild
 
